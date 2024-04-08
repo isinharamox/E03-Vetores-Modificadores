@@ -1,11 +1,58 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
-    <exclude-output />
-    <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
-    </content>
-    <orderEntry type="inheritedJdk" />
-    <orderEntry type="sourceFolder" forTests="false" />
-  </component>
-</module>
+public class Conta {
+
+    String dono;
+    double saldo;
+    int numero;
+    String agencia;
+
+    public class Main {
+
+        public static void main(String[] args) {
+            Conta conta1 = new Conta();
+            conta1.dono = "João";
+            conta1.agencia = "222-2";
+            conta1.numero = 1234;
+            conta1.saldo = 2000;
+
+            Conta conta2 = conta1;
+
+            System.out.println("Saldo conta 1: " + conta1.saldo);
+            System.out.println("Saldo conta 2: " + conta2.saldo);
+
+            System.out.println(conta1);
+            System.out.println(conta2);
+
+        }
+    }
+
+
+    boolean depositar(double valor) {
+        if(valor > 0.0) {
+            this.saldo += valor;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    boolean sacar(double valor) {
+        if(valor > 0.0 && valor <= this.saldo) {
+            this.saldo -= valor;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    boolean transferir(Conta contaDestino, double valor) {
+        boolean saqueRealizado = this.sacar(valor);
+        if(saqueRealizado) {
+            boolean depositoRealizado = contaDestino.depositar(valor);
+            return depositoRealizado;
+        } else {
+            return false;
+        }
+    }
+}
